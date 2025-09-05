@@ -4,18 +4,18 @@ query_seqs=$1
 genome_assembly=$2
 outfile=$3
 
-tblastn \
-	-query $query_seqs \
-	-subject $genome_assembly \
-	-outfmt '6 std qlen' \
-	-task tblastn-fast \
-		| awk '$3>30 && $4>0.9*$13' > $outfile
+# tblastn \
+# 	-query $query_seqs \
+# 	-subject $genome_assembly \
+# 	-outfmt '6 std qlen' \
+# 	-task tblastn-fast \
+# 		| awk '$3>30 && $4>0.9*$13' > $outfile
 
-echo "[fast] $(wc -l $outfile | cut -d' ' -f1) matches found in $genome_assembly"
+# echo "[fast] $(wc -l $outfile | cut -d' ' -f1) matches found in $genome_assembly"
 
-# tblastn -query $query_seqs -subject $genome_assembly -outfmt '6 std qlen' | awk '$3>30 && $4>0.9*$13' > $outfile
+tblastn -query $query_seqs -subject $genome_assembly -outfmt '6 std qlen' | awk '$3>30 && $4>0.9*$13' > $outfile
 
-# echo "[default] $(wc -l $outfile | cut -d' ' -f1) matches found in $genome_assembly"
+echo "[default] $(wc -l $outfile | cut -d' ' -f1) matches found in $genome_assembly"
 
 
 # (env_biol7200_sep25) [esta@archlinux ex3]$ ./find_homologs.sh ./data/HK_domain.faa ./data/Wolbachia.fna ./temp
